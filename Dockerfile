@@ -1,8 +1,9 @@
 FROM php:7.2-apache
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y dos2unix libcap2-bin git && apt-get autoremove -y && set -eux && \
-    docker-php-ext-install -j "$(nproc)" opcache pdo_mysql mysqli && \
+RUN apt-get update && apt-get install -y dos2unix libldap2-dev libcap2-bin git && apt-get autoremove -y && set -eux && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install -j "$(nproc)" opcache pdo_mysql mysqli ldap && \
 #
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
