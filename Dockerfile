@@ -27,8 +27,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 COPY config-docker.php /var/www/html/user/
 COPY .htaccess /var/www/html/
 
-RUN mkdir /var/www/html/plugins && \
-    git clone https://github.com/k3a/yourls-ldap-plugin.git && mv yourls-ldap-plugin /var/www/html/plugins/yourls-ldap-plugin && \
+RUN git clone https://github.com/k3a/yourls-ldap-plugin.git && mv yourls-ldap-plugin /var/www/html/user/plugins/yourls-ldap-plugin && \
     chown -R www-data:root /var/www/html && chmod -R g=rwx /var/www/html && setcap CAP_NET_BIND_SERVICE=+eip $(which apache2) && \
     dos2unix /usr/local/bin/docker-entrypoint.sh && dos2unix /var/www/html/user/config-docker.php && dos2unix /var/www/html/.htaccess && chmod +x /usr/local/bin/docker-entrypoint.sh
 
