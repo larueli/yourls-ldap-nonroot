@@ -34,6 +34,6 @@ RUN set -eux; \
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY config-docker.php /usr/src/yourls/user/
 COPY .htaccess /usr/src/yourls/
-RUN dos2unix /usr/local/bin/docker-entrypoint.sh && dos2unix /usr/src/yourls/user/config-docker.php && dos2unix /usr/src/yourls/.htaccess && apt-get autoremove -y
-ENTRYPOINT ["docker-entrypoint.sh"]
+RUN dos2unix /usr/local/bin/docker-entrypoint.sh && dos2unix /usr/src/yourls/user/config-docker.php && dos2unix /usr/src/yourls/.htaccess && apt-get autoremove -y && chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
