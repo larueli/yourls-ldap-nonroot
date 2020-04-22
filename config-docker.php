@@ -90,7 +90,7 @@ $yourls_reserved_URL = [
 /**
  * LDAP Settings
  */
-define( 'LDAPAUTH_HOST', getenv('LDAPAUTH_HOST'));
+define('LDAPAUTH_HOST', getenv('LDAPAUTH_HOST'));
 
 define('LDAPAUTH_PORT', getenv('LDAPAUTH_PORT'));
 
@@ -110,9 +110,9 @@ define('LDAPAUTH_GROUP_REQ', getenv('LDAPAUTH_GROUP_REQ'));
 
 define('LDAPAUTH_GROUP_SCOP',getenv('LDAPAUTH_GROUP_SCOP'));
 
-define('LDAPAUTH_USERCACHE_TYPE',getenv('LDAPAUTH_USERCACHE_TYPE'));
+define('LDAPAUTH_USERCACHE_TYPE', filter_var(getenv('LDAPAUTH_USERCACHE_TYPE'), FILTER_VALIDATE_INT) ?: 1);
 
-define('LDAPAUTH_ADD_NEW', getenv('LDAPAUTH_ADD_NEW'));
+define('LDAPAUTH_ADD_NEW', filter_var(getenv('LDAPAUTH_ADD_NEW'), FILTER_VALIDATE_BOOLEAN));
 
 define('LDAPAUTH_DNS_SITES_AND_SERVICES', getenv('LDAPAUTH_DNS_SITES_AND_SERVICES'));
 
