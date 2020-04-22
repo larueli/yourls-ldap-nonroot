@@ -21,8 +21,7 @@ RUN set -eux && \
 # upstream tarballs include ./YOURLS-${YOURLS_VERSION}/ so this gives us /usr/src/YOURLS-${YOURLS_VERSION}
     tar -xf yourls.tar.gz -C /var/www && \
 # move back to a common /usr/src/yourls
-    mv "/var/www/YOURLS-${YOURLS_VERSION}" /var/www/html && \
-    rm yourls.tar.gz
+    rm -r /var/www/html && mv "/var/www/YOURLS-${YOURLS_VERSION}" /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/ 
 COPY config-docker.php /var/www/html/user/
