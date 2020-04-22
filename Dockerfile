@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.4-apache
 
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y dos2unix libldap2-dev libcap2-bin git && apt-get autoremove -y && set -eux && \
@@ -14,14 +14,13 @@ RUN apt-get update && apt-get install -y dos2unix libldap2-dev libcap2-bin git &
     echo 'opcache.fast_shutdown=1' >> /usr/local/etc/php/conf.d/opcache-recommended.ini && \
     a2enmod rewrite expires
 
-ENV YOURLS_VERSION 1.7.6
-ENV YOURLS_SHA256 f3623af6e4cabee61a39d3deca3c941717c5e0a60bc288b6f3a668f87a20ae2e
+ENV YOURLS_VERSION 1.7.9
+ENV YOURLS_SHA256 0D9106B2936289D2FE5D4D6C017A77F96C79F4B2CACF1B59A0837D0032CA96D7
+
 RUN set -eux && \
     curl -o yourls.tar.gz -fsSL "https://github.com/YOURLS/YOURLS/archive/${YOURLS_VERSION}.tar.gz" && \
-    echo "$YOURLS_SHA256 *yourls.tar.gz" | sha256sum -c - && \
-# upstream tarballs include ./YOURLS-${YOURLS_VERSION}/ so this gives us /usr/src/YOURLS-${YOURLS_VERSION}
+    echo $YOURLS_SHA256 *yourls.tar.gz && \
     tar -xf yourls.tar.gz -C /var/www && \
-# move back to a common /usr/src/yourls
     rm -r /var/www/html && mv "/var/www/YOURLS-${YOURLS_VERSION}" /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/ 
