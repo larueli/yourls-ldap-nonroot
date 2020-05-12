@@ -26,9 +26,10 @@ RUN set -eux && \
 COPY docker-entrypoint.sh /usr/local/bin/ 
 COPY config-docker.php /var/www/html/user/
 COPY .htaccess /var/www/html/
+COPY index.php /var/www/html/index.php
 
 RUN git clone https://github.com/k3a/yourls-ldap-plugin.git && mv yourls-ldap-plugin /var/www/html/user/plugins/yourls-ldap-plugin && \
-    git clone https://github.com/ozh/yourls-fallback-url.git && mv yourls-fallback-url /var/www/html/user/plugins/yourls-fallback-url && \
+    #git clone https://github.com/ozh/yourls-fallback-url.git && mv yourls-fallback-url /var/www/html/user/plugins/yourls-fallback-url && \
     chown -R www-data:root /var/www/html && chmod -R g=rwx /var/www/html && setcap CAP_NET_BIND_SERVICE=+eip $(which apache2) && \
     dos2unix /usr/local/bin/docker-entrypoint.sh && dos2unix /var/www/html/user/config-docker.php && dos2unix /var/www/html/.htaccess && chmod +x /usr/local/bin/docker-entrypoint.sh
 
