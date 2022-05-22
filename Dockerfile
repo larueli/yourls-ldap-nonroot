@@ -1,11 +1,11 @@
-FROM larueli/php-base-image:7.4
+FROM larueli/php-base-image:8.0
 
-ARG YOURLS_VERSION=1.8.2
+ARG YOURLS_VERSION=1.9
 ENV YOURLS_VERSION=${YOURLS_VERSION}
 
 USER 0
 
-RUN curl -o yourls.tar.gz -fsSL "https://github.com/YOURLS/YOURLS/archive/${YOURLS_VERSION}.tar.gz" && \
+RUN curl -o yourls.tar.gz -fsSL "https://github.com/YOURLS/YOURLS/archive/refs/tags/${YOURLS_VERSION}.tar.gz" && \
     tar -xf yourls.tar.gz -C /var/www && \
     rm -r /var/www/html && mv "/var/www/YOURLS-${YOURLS_VERSION}" /var/www/html
 
