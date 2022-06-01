@@ -56,9 +56,10 @@ define( 'YOURLS_COOKIEKEY', getenv('YOURLS_COOKIEKEY') ?: 'modify this text with
 /** Username(s) and password(s) allowed to access the site. Passwords either in plain text or as encrypted hashes
  ** YOURLS will auto encrypt plain text passwords in this file
  ** Read http://yourls.org/userpassword for more information */
-$yourls_user_passwords = [
-    getenv('YOURLS_USER') => getenv('YOURLS_PASS'),
-];
+$yourls_user_passwords = [];
+foreach (explode(",", getenv("YOURLS_USERS")) as $user) {
+    $yourls_user_passwords[explode(":", $user)[0]] = explode(":", $user)[1];
+}
 
 /** Debug mode to output some internal information
  ** Default is false for live site. Enable when coding or before submitting a new issue */
@@ -83,9 +84,7 @@ define( 'YOURLS_NOSTATS', filter_var(getenv('YOURLS_NOSTATS'), FILTER_VALIDATE_B
  * Reserved keywords (so that generated URLs won't match them)
  * Define here negative, unwanted or potentially misleading keywords.
  */
-$yourls_reserved_URL = [
-    'porn', 'faggot', 'sex', 'nigger', 'fuck', 'cunt', 'dick',
-];
+$yourls_reserved_URL = getenv('YOURLS_RESERVED_URL') ? explode(",", getenv('YOURLS_RESERVED_URL')) : ['porn', 'faggot', 'sex', 'nigger', 'fuck', 'cunt', 'dick'];
 
 /**
  * LDAP Settings
@@ -123,6 +122,15 @@ define('LDAPAUTH_ADD_NEW', filter_var(getenv('LDAPAUTH_ADD_NEW'), FILTER_VALIDAT
 if(getenv('LDAPAUTH_DNS_SITES_AND_SERVICES'))
     define('LDAPAUTH_DNS_SITES_AND_SERVICES', getenv('LDAPAUTH_DNS_SITES_AND_SERVICES'));
 
+$amp_role_assignment = array(
+    'administrator' => getenv('AMP_USERNAMES_ADMIN') ? explode(",", getenv('AMP_USERNAMES_ADMIN')) : array(),
+    'editor' => getenv('AMP_USERNAMES_EDITOR') ? explode(",", getenv('AMP_USERNAMES_EDITOR')) : array(),
+    'contributor' => getenv('AMP_USERNAMES_CONTRIBUTOR') ? explode(",", getenv('AMP_USERNAMES_CONTRIBUTOR')) : array(),
+);
+
+$amp_admin_ipranges = getenv('AMP_ADMIN_IP_RANGES') ? explode(",", getenv('AMP_ADMIN_IP_RANGES')) : array();
+$amp_allowed_plugin_pages = getenv('AMP_ALLOWED_PLUGIN_PAGES') ? explode(",", getenv('AMP_ALLOWED_PLUGIN_PAGES')) : array();
+$amp_default_role = getenv('AMP_DEFAULT_ROLE') ?: "Editor";
 /*
  ** Personal settings would go after here.
  */
