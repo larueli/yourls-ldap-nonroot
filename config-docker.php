@@ -57,8 +57,10 @@ define( 'YOURLS_COOKIEKEY', getenv('YOURLS_COOKIEKEY') ?: 'modify this text with
  ** YOURLS will auto encrypt plain text passwords in this file
  ** Read http://yourls.org/userpassword for more information */
 $yourls_user_passwords = [];
-foreach (explode(",", getenv("YOURLS_USERS")) as $user) {
-    $yourls_user_passwords[explode(":", $user)[0]] = explode(":", $user)[1];
+if(getenv("YOURLS_USERS")) {
+    foreach (explode(",", getenv("YOURLS_USERS")) as $user) {
+        $yourls_user_passwords[explode(":", $user)[0]] = explode(":", $user)[1];
+    }
 }
 
 /** Debug mode to output some internal information
