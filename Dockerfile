@@ -15,7 +15,7 @@ COPY .htaccess /var/www/html/
 COPY index.php /var/www/html/index.php
 
 RUN git clone https://github.com/k3a/yourls-ldap-plugin.git && mv yourls-ldap-plugin /var/www/html/user/plugins/yourls-ldap-plugin && \
-    git clone https://github.com/joshp23/YOURLS-AuthMgrPlus.git && mv YOURLS-AuthMgrPlus/authMgrPlus /var/www/html/user/plugins/authMgrPlus && \
+    git clone https://github.com/larueli/YOURLS-AuthMgrPlus.git && mv YOURLS-AuthMgrPlus/authMgrPlus /var/www/html/user/plugins/authMgrPlus && \
     chgrp -R root /var/www/html && chmod -R g=rwx /var/www/html && chmod -R +x /docker-entrypoint-init.d
 
 USER 548752
